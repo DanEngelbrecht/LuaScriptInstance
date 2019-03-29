@@ -11,18 +11,18 @@ Or point to the ZIP file of a [specific release](https://github.com/DanEngelbrec
 
 # Usage
 Once the dependecy is added two Lua functions are available:
-`LuaScriptInstance.Get()` and `LuaScriptInstance.Set(instance)`
+`lua_script_instance.Get()` and `lua_script_instance.Set(instance)`
 
 # LuaScriptInstance API
 
-### LuaScriptInstance.Get()
+### lua_script_instance.Get()
 Gets the current script instance. The returned value is an opaque type and you should only use it to set the current instance.
 
 **RETURN**
 * ```instance``` (opaque) - the current script instance
 
-### LuaScriptInstance.Set(instance)
-Sets the current script instance. The instance parameters must be a value returned by LuaScriptInstance.Get().
+### lua_script_instance.Set(instance)
+Sets the current script instance. The instance parameters must be a value returned by lua_script_instance.Get().
 
 **PARAMETERS**
 * ```instance``` (opaque) - the script instance to set
