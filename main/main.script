@@ -1,0 +1,10 @@
+function init(self)
+	self.instance = lua_script_instance.Get()
+end
+
+function update(self, dt)
+	local old_instance = lua_script_instance.Get()
+	lua_script_instance.Set(self.instance)
+	local p = go.get_position()
+	lua_script_instance.Set(old_instance)
+end
