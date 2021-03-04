@@ -9,7 +9,9 @@ static int Get_impl(lua_State* L)
     dmScript::GetInstance(L);
     if (!dmScript::IsInstanceValid(L))
     {
-        DM_LUA_ERROR("Script instance is not set");
+       lua_pop(L,-1);
+       dmLogError("Script instance is not set");
+       return DM_LUA_ERROR("Script instance is not set");
     }
     return 1;
 }
@@ -19,7 +21,8 @@ static int Set_impl(lua_State* L)
     DM_LUA_STACK_CHECK(L, -1);
     if (!dmScript::IsInstanceValid(L))
     {
-        DM_LUA_ERROR("Instance is not valid");
+        dmLogError("Instance is not valid")
+        return DM_LUA_ERROR("Instance is not valid");
     }
     dmScript::SetInstance(L);
     return 0;
