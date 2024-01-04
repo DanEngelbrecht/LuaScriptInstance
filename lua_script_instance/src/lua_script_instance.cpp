@@ -3,28 +3,27 @@
 
 #include <dmsdk/sdk.h>
 
-static int Get_impl(lua_State* L)
-{
+static int Get_impl(lua_State* L){
     DM_LUA_STACK_CHECK(L, 1);
-    dmScript::GetInstance(L);
     if (!dmScript::IsInstanceValid(L))
     {
-       lua_pop(L,-1);
-       dmLogError("Script instance is not set");
-       return DM_LUA_ERROR("Script instance is not set");
+        DM_LUA_ERROR("Script instance is not valid");
     }
+    dmScript::GetInstance(L);
     return 1;
 }
 
-static int Set_impl(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, -1);
-    if (!dmScript::IsInstanceValid(L))
-    {
-        dmLogError("Instance is not valid")
-        return DM_LUA_ERROR("Instance is not valid");
+static int Set_impl(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::GetInstance(L);//current
+    lua_pushvalue(L,-2);//move new on top. stack. new->current->new
+    dmScript::SetInstance(L);//set new  stack. new->current
+    if (!dmScript::IsInstanceValid(L)){
+        dmScript::SetInstance(L);//set current
+        DM_LUA_ERROR("Instance is not valid");
+    }else{
+        lua_pop(L,1);
     }
-    dmScript::SetInstance(L);
     return 0;
 }
 
